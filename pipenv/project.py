@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import json
+import operator
 import os
 import re
 import sys
@@ -483,6 +484,8 @@ class Project(object):
 
         # Add the package to the group.
         p[key][package_name] = package[package_name]
+        packages = p[key]
+        p[key] = dict((k, v) for k, v in sorted(packages.items(), key=operator.itemgetter(0)))
 
         # Write Pipfile.
         self.write_toml(p)
